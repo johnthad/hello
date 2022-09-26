@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Sample Webapp</title>
+  <base href="/hello/"/>
+</head>
+<body>
+	<h1>Hello World!</h1>
+	<div class="buttons">
+	  <button id="getmsg">Get Message</button>
+    <button id="clrmsg">Clear Message</button>
+	</div>
+	<br>
+  <div id="message"></div>
+	<script>
+	  const message = document.getElementById('message');
+	  
+	  const getmsg = document.getElementById('getmsg');
+	  getmsg.addEventListener('click', async (evt) => {
+		  try {
+			  const response = await fetch('./hello');
+			  const data = await response.text();
+			  message.innerHTML = data;
+		  } catch (e) {
+			  throw new Error(response.status);
+		  }
+	  });
+	  
+    const clrmsg = document.getElementById('clrmsg');
+    clrmsg.addEventListener('click', (evt) => {
+      message.innerHTML = '';
+    });
+	</script>
+</body>
+</html>
